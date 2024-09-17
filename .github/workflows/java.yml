@@ -28,10 +28,9 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: microsoft
-          java-version: 17
+          java-version: 21
 
       # Runs type checker for Java files
       - name: Run on Maven site
         run: |
-          cd java
           timeout 2m mvn -f pom.xml site
