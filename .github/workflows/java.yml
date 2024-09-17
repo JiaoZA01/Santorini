@@ -27,7 +27,7 @@ jobs:
       # Checks-out Java
       - uses: actions/setup-java@v2
         with:
-          distribution: microsoft
+          distribution: oracle
           java-version: 21
 
       # Runs type checker for Java files
