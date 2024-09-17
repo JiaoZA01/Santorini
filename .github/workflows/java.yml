@@ -31,7 +31,7 @@ jobs:
           java-version: 17
 
       # Runs type checker for Java files
-      - name: Run on Java files
+      - name: Run on Maven site
         run: |
           cd java
           timeout 2m mvn -f pom.xml site
