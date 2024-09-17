@@ -33,5 +33,5 @@ jobs:
       # Runs type checker for Java files
       - name: Run on Maven site
         run: |
-          cd Satorini-Game
+          cd Santorini-Game
           timeout 2m mvn -f pom.xml site
