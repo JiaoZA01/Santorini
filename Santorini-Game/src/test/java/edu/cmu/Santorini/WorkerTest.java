@@ -15,9 +15,10 @@ public class WorkerTest {
     private static final int X = 2;
     private static final int Y = 4;
     private static final int Z = 6;
-    private Worker workerA = new Worker("ZHZ", X, Y);
-    private Worker workerB = new Worker("XWH", X, Y);
-    private Worker workerC = new Worker("XWH", Y, X);
+    private Map map = new Map();
+    private Worker workerA = new Worker("ZHZ", X, Y, map);
+    private Worker workerB = new Worker("XWH", X, Y, map);
+    private Worker workerC = new Worker("XWH", Y, X, map);
     private Position aPosition = workerA.getPosition();
     private Position bPosition = workerB.getPosition();
     private Position cPosition = workerC.getPosition();

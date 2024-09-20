@@ -19,10 +19,8 @@ public class Game {
     public Game(String nameA, String nameB) {
         boolean gameStatus = true;
         gameMap = new Map();
-        playerA = new Player();
-        playerB = new Player();
-        playerA.setPlayerName(nameA);
-        playerB.setPlayerName(nameB);
+        playerA = new Player(nameA);
+        playerB = new Player(nameB);
 
     }
 

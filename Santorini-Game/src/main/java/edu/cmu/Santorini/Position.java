@@ -5,6 +5,16 @@ public class Position {
     private int positionX;
     private int positionY;
     private static final int BOUNDARY = 4; // since Santorini plays on 5*5 grid board, grid index will range from 0-4
+    
+    private static final int UPLEFT = 0;
+    private static final int UP = 1;
+    private static final int UPRIGHT = 2;
+    private static final int LEFT = 3;
+    private static final int RIGHT = 4;
+    private static final int DOWNLEFT = 5;
+    private static final int DOWN = 6;
+    private static final int DOWNRIGHT = 7;
+
 
     /**
      * Constructor sets the initial position of an object
@@ -78,9 +88,8 @@ public class Position {
      * @return false if two positions are beyond one grid move distance or the same
      */
     public boolean positionInProximity(Position position){
-        
-        if (this.positionX == position.getPosition()[0]
-            && this.positionY == position.getPosition()[1]){
+
+        if (this.samePosition(position)){
                 return false;
         }
 
@@ -88,5 +97,36 @@ public class Position {
         int delY = Math.abs(this.positionY - position.getPosition()[1]);
 
         return (delX <= 1 && delY <= 1);
+    }
+    
+    /**
+     * Takes an integer ranging from 0-7 inclusive and output a new position based on the current position
+     * @param direction number from 0-7 which indcates the direction of movement as shown below:
+     *                  0 1 2
+     *                  3   4
+     *                  5 6 7
+     * @return the new position 
+     */
+    public Position transformer(int direction){
+        int[] pos = this.getPosition();
+        switch(direction){
+            case UPLEFT:   pos[0]--; pos[1]--; break;
+            case UP:       pos[1]--; break;
+            case UPRIGHT:  pos[0]++; pos[1]--; break;
+            case LEFT:     pos[0]--; break;
+            case RIGHT:    pos[0]++; break;
+            case DOWNLEFT: pos[0]--; pos[1]++; break;
+            case DOWN:     pos[1]++; break;
+            case DOWNRIGHT:pos[0]++; pos[1]++; break;
+            default:
+                throw new IllegalArgumentException("Invalid direction: " + direction);
+        }
+        try{
+            return new Position(pos[0],pos[1]);
+        }catch(Exception e){
+            System.err.println("Transformed location out of bounds");
+            return null;
+        }
+        
     }
 }

@@ -25,9 +25,19 @@ public class Map {
     public void createMap(){
         for (int i = 0; i < MAP_SIZE; i++) {
             for (int j = 0; j < MAP_SIZE; j++) {
-                grid[i][j] = new Grid();  
+                grid[i][j] = new Grid(i,j);  
             }
         }
+    }
+
+    /**
+     * Retrieve the grid given a position object
+     * @param position
+     * @return The grid object of given position
+     */
+    public Grid getGrid(Position position){
+        int[] pos = position.getPosition();
+        return grid[pos[0]][pos[1]];
     }
 
 
