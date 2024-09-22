@@ -27,6 +27,13 @@ public class Worker {
         
     }
 
+    //Default constructor
+    public Worker(String name) {
+        this.workerName = name;
+        this.position = new Position(); // Assign a default position
+        // Note: You won't have a map to work with here, so no map-related operations.
+    }
+
     /**
      * 
      * @return name of the worker
@@ -46,9 +53,15 @@ public class Worker {
     /**
      * Set the position of the worker
      * @param position
+     * @param map the map where the position is set on
+     * @return a boolean indicating if the location setting is successful
      */
-    public void setPosition(Position position){
+    public boolean setPosition(Position position, Map map){
+        if (!position.positionInBounds() || !map.getGrid(position).getOccupancy()){
+            return false;
+        }
         this.position = position;
+        return true;
     }
     
     /**

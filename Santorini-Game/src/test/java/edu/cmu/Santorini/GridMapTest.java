@@ -15,7 +15,15 @@ public class GridMapTest {
     private static final int X = 4;
     private static final int Y = 2;
     private static final int Z = 3;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
+    private static final int FIVE = 5;
     private static final int SIX = 6;
+    private static final int SEVEN = 7;
+    private static final int EIGHT = 8;
 
     private Worker workerA = new Worker("ZHZ", X, Y, map);
     private Worker workerB = new Worker("XWH", Y, X, map);
@@ -107,6 +115,48 @@ public class GridMapTest {
         assertThrows(Exception.class, () -> {
             player1.moveWorker(X, workerA, map);
         });
+    }
+    
+    @Test
+    public void testWorkerBuilding(){
+        //test1: player should not be able to build without adding the selected worker
+        Map map2 = null;
+        map = new Map();
+        assertFalse(player1.buildTower(SIX, workerA, map));
+        player1.addWorker(workerA, workerB);
+        assertTrue(player1.buildTower(SIX,workerA,map));
+
+        //test2: player should not be able to build if the map has not been intialized
+        assertFalse(player1.buildTower(SIX, workerA, map2));
+
+        //test3: check the player has successfully built the tower
+        try{
+            position = new Position(FOUR, THREE);
+        }
+        catch (Exception e){}
+        assertTrue(map.getGrid(position).getLevel() == ONE);
+
+        //test3: keep building and check if the dome has been built, then check if 
+        //the worker can still build after the tower finish
+        player1.buildTower(SIX,workerA,map);
+        player1.buildTower(SIX,workerA,map);
+        player1.buildTower(SIX,workerA,map);
+        assertTrue(map.getGrid(position).hasCompleteTower());
+        assertFalse(player1.buildTower(SIX, workerA, map));
+
+        //test4: try build in an illegal direction and see if exception is caught
+        assertThrows(Exception.class, () -> {
+            player1.buildTower(EIGHT, workerA, map);
+        });
+
+        //test5: try build out of bounds and see if exception is caught
+        assertThrows(Exception.class, () -> {
+            player1.buildTower(FOUR, workerA, map);
+        });
+
+        //test6: try build on grid where a worker is standing at, it should return false
+        player1.moveWorker(TWO, workerB, map);
+        assertFalse(player1.buildTower(SIX, workerA, map));
     }
 
 }

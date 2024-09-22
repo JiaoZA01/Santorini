@@ -33,6 +33,11 @@ public class Position {
         
     }
 
+    //Default constructor
+    public Position(){
+
+    }
+
     /**
      * 
      * @return a list with horizontal and vertical position in index 0 and 1 
@@ -63,6 +68,13 @@ public class Position {
      */
     public boolean positionInBounds(int pos){
         if (0 <= pos && pos <= BOUNDARY){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean positionInBounds(){
+        if (positionInBounds(positionX) && positionInBounds(positionY)){
             return true;
         }
         return false;

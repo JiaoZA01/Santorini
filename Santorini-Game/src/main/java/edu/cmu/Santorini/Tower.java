@@ -45,8 +45,7 @@ public class Tower {
      * @return A boolean indicating if the tower is completed
      */
     public boolean completeTower() {
-        if (level == MAX_LEVEL) {
-            hasDome = true;
+        if (level == MAX_LEVEL && hasDome == true) {
             return true;
         }
         return false;

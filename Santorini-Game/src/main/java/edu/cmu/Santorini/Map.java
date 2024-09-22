@@ -40,7 +40,22 @@ public class Map {
         return grid[pos[0]][pos[1]];
     }
 
+    public Grid getGrid(int x, int y){
+        return grid[x][y];
+    }
 
+     /**
+     * The method analyzes the position on board and returns whether it is within boundary
+     * @param posX 
+     * @param posY
+     * @return return a boolean suggesting if the location specified in argument is within bound
+     */
+    public boolean positionInBounds(int posX, int posY){
+        if (0 <= posX && posX < MAP_SIZE && 0 <= posY && posY < MAP_SIZE){
+            return true;
+        }
+        return false;
+    }
     
 }
 

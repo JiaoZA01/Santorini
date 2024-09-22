@@ -64,6 +64,7 @@ public class Player {
      * 2) the vacancy of intended grid (has another player, has dome)
      * 3) the level difference of the intended grid
      * 4）transfromer() method will check if the new location is in bounrds
+     * 5) the map exits
      * if all good, the workers position will be updated
      * @param direction an int from 0-7 that indicates 8 directions the 
      * @param worker number from 0-7 which indcates the direction of movement as shown below:
@@ -77,6 +78,10 @@ public class Player {
         if (!this.hasWorker(worker)){
             return false;
         }
+
+        if (map == null){
+            return false;
+        }
         Grid currentGrid = map.getGrid(worker.getPosition());
         Grid selectedGrid = map.getGrid(worker.getPosition().transformer(direction));
         
@@ -84,7 +89,7 @@ public class Player {
             return false;
         }
 
-        worker.setPosition(selectedGrid.getPosition());
+        worker.setPosition(selectedGrid.getPosition(),map);
 
         currentGrid.toggleOccupancy();
         selectedGrid.toggleOccupancy();
@@ -107,11 +112,14 @@ public class Player {
         if (!this.hasWorker(worker)){
             return false;
         }
+
+        if (map == null){
+            return false;
+        }
         Grid selectedGrid = map.getGrid(worker.getPosition().transformer(direction));
         if (!worker.buildTower(selectedGrid)){
             return false;
         }
-        worker.buildTower(selectedGrid);
         return true;
     }
 
