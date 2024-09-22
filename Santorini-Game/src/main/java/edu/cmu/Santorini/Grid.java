@@ -1,11 +1,9 @@
 package edu.cmu.Santorini;
 
 public class Grid {
-    private boolean hasDome;
-    private boolean isOccupied;
-    private int level;
     private Position position;
-    private static final int MAX_LEVEL = 3;
+    private Tower tower;
+    private boolean isOccupied;
 
     /**
      * Constructor that initializes a grid object
@@ -18,10 +16,19 @@ public class Grid {
             this.position = new Position(posX, posY);
         }catch(Exception e){
         }
-        
         isOccupied = false;
-        hasDome = false;
-        level = 0;
+        tower = new Tower();
+    }
+
+    /**
+     * Calling this method returns whether the tower is completed and can no longer been built upon
+     * @return A boolean indicating if the tower is completed
+     */
+    public boolean hasCompleteTower() {
+        if (this.tower.completeTower()) {
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -42,40 +49,36 @@ public class Grid {
     }
 
     /*
-     * Returns the number of level of blocks for the selected block
+     * Returns the number of level of blocks for the selected block, -1 if the tower is completed
      */
     public int getLevel(){
-        return level;
+        if (this.tower.completeTower()){
+            return -1;
+        }
+        return this.tower.getLevel();
     }
 
     /*
      * After building the tower, it modifies the level attribute of the grid
      */
     public boolean addLevel(){
-        if (!isOccupied && !hasDome && level < MAX_LEVEL){
-            level++;
+        if (!isOccupied && !hasCompleteTower()){
+            this.tower.addLevel();
             return true;
         }
         return false;
     }
-
-    /*
-     * Indicates the state of the grid
-     * If has dome, then the worker cannot move onto the selected grid
-     */
-    public boolean hasDome(){
-        return hasDome;
-    }
     
-    /*
-     * 
+    /**
+     * This method sets the dome on tower
+     * @return A boolean indicating whether setting the dome is successful
      */
     public boolean setDome(){
-        if (this.getLevel() != MAX_LEVEL || this.hasDome()){
-            return false;
+        if (this.tower.canAddDome()){
+            this.tower.setDome();
+            return true;
         }
-        this.hasDome = true;
-        return true;
+        return false;
     }
 
     /**
